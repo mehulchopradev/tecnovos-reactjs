@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import LiveAlgebraicExpression from '../live-algebraic-expression/LiveAlgebraicExpression';
 import './CalculatorForm.css';
 
 class CalculatorForm extends Component {
@@ -74,8 +75,12 @@ class CalculatorForm extends Component {
           <input type="text" name="ans" value={ans} readOnly placeholder="Here comes the ans"/>
         </div>
         <div className='row'>
-          <h2>Live algebraic expression</h2>
-          <span>{ans ? `${firstNo} ${operation} ${secondNo} = ${ans}`: null}</span>
+          <LiveAlgebraicExpression
+            firstNo={firstNo}
+            secondNo={secondNo}
+            ans={ans}
+            operation={operation}
+          />
         </div>
       </div>
     )
