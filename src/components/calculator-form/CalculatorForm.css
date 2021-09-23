@@ -1,0 +1,13 @@
+.calculator-form {
+  padding: 20px;
+  text-align: center;
+}
+
+.calculator-form > .row {
+  padding: 20px;
+}
+
+.row > select {
+  margin-left: 10px;
+  margin-right: 10px;
+}
