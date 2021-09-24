@@ -1,6 +1,8 @@
 import './App.css';
 import NameGenerator from './components/name-generator/NameGenerator';
-import CalculatorForm from './components/calculator-form/CalculatorForm';
+// import CalculatorForm from './components/calculator-form/CalculatorForm';
+
+import Calculator from './components/calculator/Calculator';
 
 // React component
 // JSX
@@ -11,7 +13,7 @@ function App() {
         defaultFirst="Steve"
         defaultSecond="Jobs"
       />
-      <CalculatorForm/>
+      <Calculator/>
     </div>
   );
 }
