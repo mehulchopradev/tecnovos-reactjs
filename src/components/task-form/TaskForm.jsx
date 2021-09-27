@@ -17,6 +17,9 @@ class TaskForm extends Component {
   handleOnClick = () => {
     const { newTask } = this.state;
     const { onNewTask } = this.props;
+    this.setState({
+      newTask: ''
+    }); // re render
     onNewTask({
       title: newTask,
       createdDate: new Date()
@@ -26,7 +29,7 @@ class TaskForm extends Component {
   render() {
     return (
       <div className='task-form'>
-        <input type="text" placeholder="enter todo" onChange={this.handleChange}/>
+        <input type="text" placeholder="enter todo" value={this.state.newTask} onChange={this.handleChange}/>
         <button disabled={!this.state.newTask} onClick={this.handleOnClick}>Save</button>
       </div>
     )

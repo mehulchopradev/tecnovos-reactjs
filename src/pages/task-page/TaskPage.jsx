@@ -1,9 +1,12 @@
 import './TaskPage.css';
 
+import TaskApp from '../../components/task-app/TaskApp';
+
 function TaskPage() {
   return (
     <div>
-      This is my todos application
+      <h2>Track your tasks!</h2>
+      <TaskApp/>
     </div>
   )
 }
