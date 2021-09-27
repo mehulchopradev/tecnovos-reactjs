@@ -3,9 +3,9 @@ export function capitalize(text) {
     return text;
   }
 
-  if (text.length() === 1) {
+  if (text.length === 1) {
     return text.toUpperCase();
   }
 
-  return `${text[0].toUpperCase()} ${text.substring(1).toLowerCase()}`;
+  return `${text[0].toUpperCase()}${text.substring(1).toLowerCase()}`;
 }
