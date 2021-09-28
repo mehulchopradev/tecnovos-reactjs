@@ -1,83 +1,85 @@
-import { Component } from 'react';
-import './Calculator.css';
+import { useState, useEffect } from "react";
+import CalculatorForm from "../calculator-form/CalculatorForm";
+import LiveAlgebraicExpression from "../live-algebraic-expression/LiveAlgebraicExpression";
 
-import axios from 'axios';
+import axios from "axios";
 
-import CalculatorForm from '../calculator-form/CalculatorForm';
-import LiveAlgebraicExpression from '../live-algebraic-expression/LiveAlgebraicExpression';
+function Calculator() {
 
-class Calculator extends Component {
-
-  // initial state
-  state = {
+  const [data, setData] = useState({
     firstNo: '',
     secondNo: '',
     ans: '',
     operation: '+'
-  }
+  });
 
-  handleChange = ({ target: { name, value } }) => {
-    // this will be the component object
-    this.setState({
+  useEffect(() => {
+    const fetchData = async () => {
+      // make a call to the server for default calc data
+      // and then set it on the state
+      const { data } = await axios.get('https://my-json-server.typicode.com/mehulchopradev/calc-service/defaultCalcData');
+      setData(data); // re render
+    }
+
+    fetchData();
+
+    return () => {
+      // this is the clean up function
+      // will be called just before the component will be unmounted
+      console.log('Calculator -- component will unmount');
+    }
+  }, []); // passing an empty dependencies array emulates a componentDidMount()
+
+  const handleChange = ({ target: { name, value } }) => {
+    setData({
+      ...data,
       [name]: value
     }); // re render
   };
 
-  handleOperationChange = ({ target: { value } }) => {
-    // this.operation = value; // will not cause a re render
-    this.setState({
+  const handleOperationChange = ({ target: { value } }) => {
+    setData({
+      ...data,
       operation: value
     }); // re render
-  }
+  };
 
-  handleAns = (ans) => {
-    this.setState({
+  const handleAns = (ans) => {
+    setData({
+      ...data,
       ans
-    }); // re render
+    });
   }
 
-  // lifecycle methods
+  console.log(data);
+  const { firstNo, secondNo, ans, operation } = data;
 
-  async componentDidMount() {
-    console.log('Calculator --- component did mount');
+  useEffect(() => {
+    // side effect code
+    console.log(firstNo);
+    console.log(secondNo);
+  }, [firstNo, secondNo]);
 
-    const { data } = await axios.get('https://my-json-server.typicode.com/mehulchopradev/calc-service/defaultCalcData');
-    this.setState(data);
-  }
+  return (
+    <>
+      <CalculatorForm
+        firstNo={firstNo}
+        secondNo={secondNo}
+        operation={operation}
+        ans={ans}
 
-  componentWillUnmount() {
-    console.log('Calculator -- component will unmount');
-    // execute code that clears off things
-    // releases memory
-    // release listeners
-  }
-
-  // 1. Initial load
-  // 2. setState
-  render() {
-    console.log('Calculator --- render()');
-    const { firstNo, secondNo, operation, ans } = this.state;
-    return (
-      <>
-        <CalculatorForm
-          firstNo={firstNo}
-          secondNo={secondNo}
-          operation={operation}
-          ans={ans}
-
-          handleChange={this.handleChange}
-          handleOperationChange={this.handleOperationChange}
-          handleAns={this.handleAns}
-        />
-        <LiveAlgebraicExpression
-          firstNo={firstNo}
-          secondNo={secondNo}
-          operation={operation}
-          ans={ans}
-        />
-      </>
-    )
-  }
+        handleChange={handleChange}
+        handleOperationChange={handleOperationChange}
+        handleAns={handleAns}
+      />
+      <LiveAlgebraicExpression
+        firstNo={firstNo}
+        secondNo={secondNo}
+        operation={operation}
+        ans={ans}
+      />
+    </>
+  )
 }
 
 export default Calculator;
