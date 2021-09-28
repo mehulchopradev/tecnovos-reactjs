@@ -78,7 +78,12 @@ class TaskApp extends Component {
     });
   }
 
+  componentDidMount() {
+    console.log('TaskApp -- componentDidMount');
+  }
+
   render() {
+    console.log('TaskApp -- render');
     return (
       <div className='task-app'>
         <TaskForm onNewTask={this.handleNewTask}/>

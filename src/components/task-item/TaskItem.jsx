@@ -1,9 +1,11 @@
 import './TaskItem.css';
 import moment from 'moment';
+import React from 'react';
 
 import { capitalize } from '../../utils/string-utils';
 
 function TaskItem({ task: { id, title, createdDate }, onHandleChange }) {
+  console.log('TaskItem --- render');
 
   const onCheckboxCheckedUnchecked = (event) => {
     const { target: { checked } } = event;
@@ -19,4 +21,4 @@ function TaskItem({ task: { id, title, createdDate }, onHandleChange }) {
   )
 }
 
-export default TaskItem;
+export default React.memo(TaskItem);

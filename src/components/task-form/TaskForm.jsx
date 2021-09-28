@@ -26,7 +26,19 @@ class TaskForm extends Component {
     });
   }
 
+  componentDidMount() {
+    console.log('TaskForm -- componentDidMount');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // console.log('TaskForm -- shouldComponentUpdate');
+    // console.log('Curren state', this.state);
+    // console.log('New state', nextState);
+    return this.state.newTask !== nextState.newTask;
+  }
+
   render() {
+    console.log('TaskForm -- render');
     return (
       <div className='task-form'>
         <input type="text" placeholder="enter todo" value={this.state.newTask} onChange={this.handleChange}/>
