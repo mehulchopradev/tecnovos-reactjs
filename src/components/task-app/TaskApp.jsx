@@ -17,16 +17,41 @@ class TaskApp extends Component {
 
     // we have to handle the id generation
     const clonedNewTask = { ...newTask };
-    clonedNewTask.id = this.state.tasks.length + 1;
 
+    this.setState((prevState, prevProps) => {
+      const { tasks } = prevState;
+      clonedNewTask.id = tasks.length + 1;
+
+      return {
+        tasks: tasks.concat([clonedNewTask])
+      };
+    });
+
+    /* clonedNewTask.id = this.state.tasks.length + 1;
+
+    // new value depends upon the value from the previous state
     this.setState({
       tasks: this.state.tasks.concat([clonedNewTask])
-    }) // re render
+    }) */ // re render
 
+    // setState is an asynchronous call (batched)
   }
 
   handleChange = (taskId) => {
-    const { checkedTasks } = this.state;
+    this.setState((prevState, prevProps) => {
+      const { checkedTasks } = prevState;
+      const clonedCheckedTasks = [...checkedTasks];
+      if (clonedCheckedTasks.includes(taskId)) {
+        clonedCheckedTasks.splice(clonedCheckedTasks.indexOf(taskId), 1);
+      } else {
+        clonedCheckedTasks.push(taskId);
+      }
+
+      return {
+        checkedTasks: clonedCheckedTasks
+      }
+    });
+    /* const { checkedTasks } = this.state;
     const clonedCheckedTasks = [...checkedTasks];
     if (clonedCheckedTasks.includes(taskId)) {
       clonedCheckedTasks.splice(clonedCheckedTasks.indexOf(taskId), 1);
@@ -36,14 +61,21 @@ class TaskApp extends Component {
 
     this.setState({
       checkedTasks: clonedCheckedTasks
-    }); // re render
+    }); */ // re render
   }
 
   handleClear = () => {
-    this.setState({
+    /* this.setState({
       tasks: this.state.tasks.filter(task => !this.state.checkedTasks.includes(task.id)),
       checkedTasks: [],
-    }) // re render
+    }) */ // re render
+
+    this.setState((prevState, prevProps) => {
+      return {
+        tasks: prevState.tasks.filter(task => !this.state.checkedTasks.includes(task.id)),
+        checkedTasks: []
+      }
+    });
   }
 
   render() {
