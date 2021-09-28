@@ -27,13 +27,13 @@ function CalculatorForm (props) {
   return (
     <div className='calculator-form'>
       <div className='row'>
-        <input type="text" name="firstNo" placeholder="Enter first no" onChange={handleChange}/>
+        <input type="text" name="firstNo" value={firstNo} placeholder="Enter first no" onChange={handleChange}/>
         <select name="operations" onChange={handleOperationChange}>
           <option>+</option>
           <option>-</option>
           <option>*</option>
         </select>
-        <input type="text" name="secondNo" placeholder="Enter second no" onChange={handleChange}/>
+        <input type="text" name="secondNo" value={secondNo} placeholder="Enter second no" onChange={handleChange}/>
       </div>
       <div className='row'>
         <button disabled={isDisabled} onClick={handleSubmit}>Calculate</button>
