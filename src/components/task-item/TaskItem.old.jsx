@@ -1,24 +1,15 @@
 import './TaskItem.css';
 import moment from 'moment';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 import { capitalize } from '../../utils/string-utils';
 
-function TaskItem({ task: { id, title, createdDate }}) {
+function TaskItem({ task: { id, title, createdDate }, onHandleChange }) {
   console.log('TaskItem --- render');
-
-  const dispatch = useDispatch();
 
   const onCheckboxCheckedUnchecked = (event) => {
     const { target: { checked } } = event;
-    dispatch({
-      type: 'CHECK_UNCHECK_TASK',
-      data: {
-        id,
-        checked
-      }
-    })
+    onHandleChange(id, checked);
   }
 
   return (

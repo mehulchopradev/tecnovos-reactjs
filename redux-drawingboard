@@ -1,0 +1,18 @@
+                      Redux                                                                           React
+
+                      Store (declare that it provides data to REACT)                                  TaskList
+          (element that manages the entire global state)
+                                                                                                      TaskForm
+                                                                                                        - newTask (title, createdDate)
+                    RootReducer(interacts with the store)                                               - dispatch(??????)
+                                                                                                          - the data will go the the entire redux
+                                                                                                          - the data will be sent to all the mini reducers
+                                                                                                          - payload
+                                                                                                            - actionType (intent) "NEW_TASK" - tag
+                                                                                                            - data
+      (aggregator of slices of global data coming from various mini reducers)
+
+
+
+CalculatorReducer             TaskReducer               LibraryReducer
+                              state: tasks

@@ -1,28 +1,19 @@
 import { useState } from "react";
 
-import { useDispatch } from "react-redux";
-
-function TaskForm() {
+function TaskForm({ onNewTask }) {
   const [newTask, setNewTask] = useState('');
-
-  const dispatch = useDispatch();
 
   const handleChange = ({ target: { value }}) => {
     setNewTask(value); // re render
   };
 
   const handleClick = () => {
-
-    // Redux is a synchronous system
-    dispatch({
-      type: 'NEW_TASK',
-      data: {
-        title: newTask,
-        createdDate: new Date()
-      }
+    setNewTask('');
+  
+    onNewTask({
+      title: newTask,
+      createdDate: new Date()
     });
-
-    setNewTask(''); // re render (scheduled)
   };
 
   return (
@@ -32,6 +23,5 @@ function TaskForm() {
     </div>
   )
 }
-
 
 export default TaskForm;
