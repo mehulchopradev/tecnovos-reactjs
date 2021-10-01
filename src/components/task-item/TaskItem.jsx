@@ -4,6 +4,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { capitalize } from '../../utils/string-utils';
+import { checkUncheckTask } from '../../redux/task/tasks.action';
 
 function TaskItem({ task: { id, title, createdDate }}) {
   console.log('TaskItem --- render');
@@ -12,13 +13,7 @@ function TaskItem({ task: { id, title, createdDate }}) {
 
   const onCheckboxCheckedUnchecked = (event) => {
     const { target: { checked } } = event;
-    dispatch({
-      type: 'CHECK_UNCHECK_TASK',
-      data: {
-        id,
-        checked
-      }
-    })
+    dispatch(checkUncheckTask(id, checked));
   }
 
   return (

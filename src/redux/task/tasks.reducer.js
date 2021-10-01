@@ -1,3 +1,5 @@
+import taskActionTypes from "./tasks.types";
+
 const INITIAL_STATE = {
   tasks: [],
   checkedTasks: []
@@ -7,7 +9,7 @@ const tasksReducer = (currentState = INITIAL_STATE, payload) => {
   const { type, data } = payload;
 
   switch(type) {
-    case 'NEW_TASK':
+    case taskActionTypes.NEW_TASK:
       const task = { ...data };
       task.id = currentState.tasks.length + 1;
 
@@ -15,7 +17,7 @@ const tasksReducer = (currentState = INITIAL_STATE, payload) => {
         ...currentState,
         tasks: currentState.tasks.concat([task])
       }
-    case 'CHECK_UNCHECK_TASK':
+    case taskActionTypes.CHECK_UNCHECK_TASK:
       const { id, checked } = data;
       let newState;
       if (checked) {
@@ -30,9 +32,8 @@ const tasksReducer = (currentState = INITIAL_STATE, payload) => {
         }
       }
       
-      console.log(newState);
       return newState;
-    case 'CLEAR_TASKS':
+    case taskActionTypes.CLEAR_TASKS:
       return {
         ...currentState,
         tasks: currentState.tasks.filter(task => !currentState.checkedTasks.includes(task.id)),

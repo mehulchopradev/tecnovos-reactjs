@@ -1,4 +1,4 @@
-                      Redux                                                                           React
+                      Redux                                   Middleware                                        React
 
                       Store (declare that it provides data to REACT)                                  TaskList
           (element that manages the entire global state)
