@@ -1,5 +1,6 @@
 import './TaskApp.css';
 
+import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import TaskForm from '../task-form/TaskForm';
@@ -7,7 +8,10 @@ import TaskList from '../task-list/TaskList';
 
 import { clearTasks } from '../../redux/task/tasks.action';
 
-function TaskApp() {
+function TaskApp(props) {
+  console.log('Task APPP');
+  console.log(props);
+
   const checkedTasks = useSelector(rootState => rootState.tasksReducer.checkedTasks);
   const dispatch = useDispatch();
 
@@ -26,4 +30,4 @@ function TaskApp() {
   )
 }
 
-export default TaskApp;
+export default withRouter(TaskApp);
