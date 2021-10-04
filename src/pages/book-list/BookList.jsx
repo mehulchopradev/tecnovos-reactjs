@@ -23,7 +23,7 @@ function BookList(props) {
                 <td>{book.id}</td>
                 <td>{book.title}</td>
                 <td>
-                  <Link to='/library/book-details'>Details</Link>
+                  <Link to={`/library/book-details/${book.id}`}>Details</Link>
                 </td>
               </tr>
             ))
