@@ -2,3 +2,10 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.book-list {
+  background-color: bisque;
+  position: relative;
+  margin: -14px;
+  z-index: 2;
+}

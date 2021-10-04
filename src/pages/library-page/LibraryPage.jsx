@@ -3,8 +3,9 @@ import { Route, Redirect } from 'react-router-dom';
 import BookList from '../book-list/BookList';
 import BookDetails from '../book-details/BookDetails';
 import { /* initBooks, startBooksLoading, endBooksLoading, booksError, */ fetchBooks } from '../../redux/library/library.action';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Modal from '../../components/modal/Modal';
 
 // import axios from 'axios';
 
@@ -15,6 +16,7 @@ function LibraryPage(props) {
 
   const isBooksLoading = useSelector(rootState => rootState.libraryReducer.isBooksLoading);
   const isBooksError = useSelector(rootState => rootState.libraryReducer.isBooksError);
+  const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,8 +43,9 @@ function LibraryPage(props) {
   return (
     <div>
       <h2>Welcome to the world of books!</h2>
-      <div>
-        <button>Add a book</button>
+      <div class="add-button-container">
+        <button onClick={() => setIsVisible(true)}>Add a book</button>
+        <Modal isVisible={isVisible}/>
       </div>
 
       <Route exact path={path}>
