@@ -1,19 +1,20 @@
 import './Modal.css';
+import ReactDOM from 'react-dom';
 
-function Modal({ isVisible }) {
+function Modal({ isVisible, onClose, children }) {
   if (!isVisible) {
     return null;
   }
 
-  return (
+  return ReactDOM.createPortal((
     <div className='modal'>
       <div className='overlay'></div>
       <div className='content'>
-        Here comes the content of the modal
-        <button>Close</button>
+        {children}
+        <button onClick={onClose}>Close</button>
       </div>
     </div>
-  )
+  ), document.getElementById('modal'))
 }
 
 export default Modal;

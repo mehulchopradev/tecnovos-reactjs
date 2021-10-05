@@ -36,6 +36,25 @@ const updateBook = (book) => {
   }
 }
 
+const startCreateBook = () => {
+  return {
+    type: LIBRARY_ACTION_TYPES.START_CREATE_BOOK
+  }
+}
+
+const endCreateBook = () => {
+  return {
+    type: LIBRARY_ACTION_TYPES.END_CREATE_BOOK
+  }
+}
+
+const newBook = (book) => {
+  return {
+    type: LIBRARY_ACTION_TYPES.NEW_BOOK,
+    data: book
+  }
+}
+
 // thunk action creator
 export const fetchBooks = () => {
   return async (dispatch) => {
@@ -57,5 +76,20 @@ export const fetchBook = (bookId) => {
   return async (dispatch) => {
     const { data } = await axios.get(`http://localhost:3002/books/${bookId}`);
     dispatch(updateBook(data));
+  }
+}
+
+export const createBookAsync = (book) => {
+  return async (dispatch) => {
+    dispatch(startCreateBook());
+    try {
+      const { data } = await axios.post('http://localhost:3002/books', book);
+      dispatch(newBook(data));
+    } catch (err) {
+      // TODO: dispatch an error action object
+      // dispatch()
+    } finally {
+      dispatch(endCreateBook());
+    }
   }
 }

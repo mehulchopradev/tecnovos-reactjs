@@ -3,7 +3,9 @@ import LIBRARY_ACTION_TYPES from "./library.types";
 const INITIAL_STATE = {
   books: [],
   isBooksLoading: false,
-  isBooksError: false
+  isBooksError: false,
+  isCreateBookInProgress: false,
+  isCreateBookError: false
 };
 
 const libraryReducer = (currentState = INITIAL_STATE, action) => {
@@ -39,6 +41,21 @@ const libraryReducer = (currentState = INITIAL_STATE, action) => {
       }
       return {
         ...currentState
+      }
+    case LIBRARY_ACTION_TYPES.START_CREATE_BOOK:
+      return {
+        ...currentState,
+        isCreateBookInProgress: true
+      }
+    case LIBRARY_ACTION_TYPES.END_CREATE_BOOK:
+      return {
+        ...currentState,
+        isCreateBookInProgress: false
+      }
+    case LIBRARY_ACTION_TYPES.NEW_BOOK:
+      return {
+        ...currentState,
+        books: currentState.books.concat([data])
       }
     default:
       return currentState;

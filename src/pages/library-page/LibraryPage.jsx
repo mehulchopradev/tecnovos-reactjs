@@ -2,6 +2,7 @@ import './LibraryPage.css';
 import { Route, Redirect } from 'react-router-dom';
 import BookList from '../book-list/BookList';
 import BookDetails from '../book-details/BookDetails';
+import BookForm from '../../components/book-form/BookForm';
 import { /* initBooks, startBooksLoading, endBooksLoading, booksError, */ fetchBooks } from '../../redux/library/library.action';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,12 +17,20 @@ function LibraryPage(props) {
 
   const isBooksLoading = useSelector(rootState => rootState.libraryReducer.isBooksLoading);
   const isBooksError = useSelector(rootState => rootState.libraryReducer.isBooksError);
+  const isCreateBookInProgress = useSelector(rootState => rootState.libraryReducer.isCreateBookInProgress);
+
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchBooks());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isCreateBookInProgress) {
+      setIsVisible(false);
+    }
+  }, [isCreateBookInProgress])
 
   /* useEffect(() => {
     const fetchBooks = async () => {
@@ -45,7 +54,9 @@ function LibraryPage(props) {
       <h2>Welcome to the world of books!</h2>
       <div class="add-button-container">
         <button onClick={() => setIsVisible(true)}>Add a book</button>
-        <Modal isVisible={isVisible}/>
+        <Modal isVisible={isCreateBookInProgress || isVisible} onClose={() => setIsVisible(false)}>
+          <BookForm/>
+        </Modal>
       </div>
 
       <Route exact path={path}>
