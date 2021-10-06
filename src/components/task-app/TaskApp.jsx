@@ -1,31 +1,35 @@
 import './TaskApp.css';
 
 import { withRouter } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { useContext, useState } from 'react';
 
 import TaskForm from '../task-form/TaskForm';
 import TaskList from '../task-list/TaskList';
 
-import { clearTasks } from '../../redux/task/tasks.action';
+import TaskappContext from '../../context/Taskapp.context';
 
 function TaskApp(props) {
-  console.log('Task APPP');
-  console.log(props);
+  const initialTasks = useContext(TaskappContext);
+  const [tasks, setTasks] = useState(initialTasks);
 
-  const checkedTasks = useSelector(rootState => rootState.tasksReducer.checkedTasks);
-  const dispatch = useDispatch();
+  const onHandleChange = () => {
+  };
 
-  const handleClear = () => {
-    dispatch(clearTasks());
+  const onNewTask = (task) => {
+    const newTask = {...task};
+    newTask.id = tasks.length + 1;
+
+    setTasks(tasks.concat([newTask]));
   }
+
   return (
     <div className='task-app'>
-      <TaskForm />
-      <TaskList/>
-      <div>
-        <button disabled={!checkedTasks.length} onClick={handleClear}>Clear completed todos</button>
-        <span>({checkedTasks.length})</span>
-      </div>
+      <TaskForm onNewTask={onNewTask}/>
+
+      <TaskappContext.Provider value={tasks}>
+        <TaskList onHandleChange={onHandleChange}/>
+      </TaskappContext.Provider>
     </div>
   )
 }

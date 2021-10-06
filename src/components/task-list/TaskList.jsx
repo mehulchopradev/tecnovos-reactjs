@@ -2,18 +2,17 @@ import './TaskList.css';
 
 import TaskItem from '../task-item/TaskItem';
 
-import { useSelector } from 'react-redux';
+import TaskappContext from '../../context/Taskapp.context';
+import { useContext } from 'react';
 
-function TaskList() {
-
-  // will be called when the TaskList component is being rendered
-  // it will also be called when there is any change in the state of the tasksReducer 
-  const tasks = useSelector(rootState => rootState.tasksReducer.tasks);
+function TaskList(props) {
+  const { onHandleChange } = props;
+  const tasks = useContext(TaskappContext);
   
   return (
     <div className='task-list'>
       {
-        tasks.map(task => <TaskItem key={task.id} task={task}/>)
+        tasks.map(task => <TaskItem key={task.id} task={task} onHandleChange={onHandleChange}/>)
       }
     </div>
   )

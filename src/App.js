@@ -6,10 +6,17 @@ import './App.css';
 
 import { Route, Link } from 'react-router-dom';
 
-import CalculatorPage from './pages/calculator-page/CalculatorPage';
+import { lazy, Suspense } from 'react';
+
+/* import CalculatorPage from './pages/calculator-page/CalculatorPage';
 import TaskPage from './pages/task-page/TaskPage';
 import LibraryPage from './pages/library-page/LibraryPage';
-import Users from './pages/users/Users';
+import Users from './pages/users/Users'; */
+
+const CalculatorPage = lazy(() => import('./pages/calculator-page/CalculatorPage'));
+const TaskPage = lazy(() => import('./pages/task-page/TaskPage'));
+const LibraryPage = lazy(() => import('./pages/library-page/LibraryPage'));
+const Users = lazy(() => import('./pages/users/Users'));
 
 // React component
 // JSX
@@ -24,10 +31,12 @@ function App() {
         <Link to='/users'>Users</Link>
       </div>
 
-      <Route path='/calc' component={CalculatorPage}/>
-      <Route path='/todos' component={TaskPage}/>
-      <Route path='/library' component={LibraryPage}/>
-      <Route path='/users' component={Users}/>
+      <Suspense fallback={<h2>Loading...Please wait</h2>}>
+        <Route path='/calc' component={CalculatorPage}/>
+        <Route path='/todos' component={TaskPage}/>
+        <Route path='/library' component={LibraryPage}/>
+        <Route path='/users' component={Users}/>
+      </Suspense>
       <footer>
         Copyright 2021 All Rights Reserved
       </footer>
