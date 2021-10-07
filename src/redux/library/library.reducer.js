@@ -12,11 +12,13 @@ const libraryReducer = (currentState = INITIAL_STATE, action) => {
   const { type, data } = action;
   switch(type) {
     case LIBRARY_ACTION_TYPES.INIT_BOOKS:
+      console.log('Init books in reducer');
       return {
         ...currentState,
         books: data
       }
     case LIBRARY_ACTION_TYPES.START_BOOKS_LOADING:
+    case LIBRARY_ACTION_TYPES.REFRESH_BOOKS_START:
       return {
         ...currentState,
         isBooksLoading: true,

@@ -3,7 +3,7 @@ import axios from "axios"
 
 const FETCH_BOOKS_URL = 'http://localhost:3002/books';
 
-const initBooks = (books) => {
+export const initBooks = (books) => {
   return {
     type: LIBRARY_ACTION_TYPES.INIT_BOOKS,
     data: books
@@ -16,7 +16,7 @@ const startBooksLoading = () => {
   }
 }
 
-const endBooksLoading = () => {
+export const endBooksLoading = () => {
   return {
     type: LIBRARY_ACTION_TYPES.END_BOOKS_LOADING
   }
@@ -52,6 +52,12 @@ const newBook = (book) => {
   return {
     type: LIBRARY_ACTION_TYPES.NEW_BOOK,
     data: book
+  }
+}
+
+export const refreshBooksStart = () => {
+  return {
+    type: LIBRARY_ACTION_TYPES.REFRESH_BOOKS_START
   }
 }
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function BookList(props) {
+  console.log('Book list renders');
   const books = useSelector(rootState => rootState.libraryReducer.books);
 
   return (

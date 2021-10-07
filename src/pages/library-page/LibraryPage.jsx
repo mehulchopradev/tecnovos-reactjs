@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import BookList from '../book-list/BookList';
 import BookDetails from '../book-details/BookDetails';
 import BookForm from '../../components/book-form/BookForm';
-import { /* initBooks, startBooksLoading, endBooksLoading, booksError, */ fetchBooks } from '../../redux/library/library.action';
+import { /* initBooks, startBooksLoading, endBooksLoading, booksError, */ fetchBooks, refreshBooksStart } from '../../redux/library/library.action';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../../components/modal/Modal';
@@ -52,6 +52,7 @@ function LibraryPage(props) {
   return (
     <div>
       <h2>Welcome to the world of books!</h2>
+      <button onClick={() => dispatch(refreshBooksStart())}>Refresh</button>
       <div class="add-button-container">
         <button onClick={() => setIsVisible(true)}>Add a book</button>
         <Modal isVisible={isCreateBookInProgress || isVisible} onClose={() => setIsVisible(false)}>
