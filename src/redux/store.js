@@ -4,8 +4,7 @@ import logger from "redux-logger";
 import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import rootReducer from "./root.reducer";
-
-import { refreshBooksStart } from "./library/library.saga";
+import rootSaga from "./root.saga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,4 +14,4 @@ const middlewares = [logger, thunk, sagaMiddleware];
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 export const persistor = persistStore(store);
 
-sagaMiddleware.run(refreshBooksStart);
+sagaMiddleware.run(rootSaga);

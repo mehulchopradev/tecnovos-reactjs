@@ -1,6 +1,6 @@
 import LIBRARY_ACTION_TYPES from "./library.types";
 
-import { initBooks, endBooksLoading } from "./library.action";
+import { initBooks, endBooksLoading, newBook, endCreateBook } from "./library.action";
 
 import { takeEvery, takeLatest, put } from 'redux-saga/effects';
 
@@ -24,4 +24,21 @@ export function* fetchBooksAsync() {
 export function* refreshBooksStart() {
   // listen for the redux action REFRESH_BOOKS_START after which want to make an asynchronous call to fetch the books
   yield takeLatest(LIBRARY_ACTION_TYPES.REFRESH_BOOKS_START, fetchBooksAsync);
+}
+
+
+export function* postBookAsync({ data: book }) {
+  try {
+    const { data } = yield axios.post('http://localhost:3002/books', book);
+    yield put(newBook(data));
+  } catch (err) {
+    // TODO: dispatch an error action object
+    // dispatch()
+  } finally {
+    yield put(endCreateBook());
+  }
+}
+
+export function* createBookStart() {
+  yield takeLatest(LIBRARY_ACTION_TYPES.START_CREATE_BOOK, postBookAsync);
 }

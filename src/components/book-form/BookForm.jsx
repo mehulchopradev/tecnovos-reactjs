@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import * as Yup from 'yup';
 
-import { createBookAsync } from '../../redux/library/library.action';
+import { createBookAsync, startCreateBook } from '../../redux/library/library.action';
 import { useDispatch } from 'react-redux';
 
 // title required string min(4) max(20)
@@ -47,7 +47,8 @@ function BookForm() {
           pages: ''
         }}
         onSubmit={(data) => {
-          dispatch(createBookAsync(data));
+          // dispatch(createBookAsync(data));
+          dispatch(startCreateBook(data));
         }}
         validationSchema={Yup.object().shape({
           title: Yup.string().min(4, 'Min length must be 4').max(20, 'Max length must be 20').required('title is required'),

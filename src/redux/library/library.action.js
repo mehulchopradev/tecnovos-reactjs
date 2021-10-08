@@ -36,19 +36,26 @@ const updateBook = (book) => {
   }
 }
 
-const startCreateBook = () => {
+/* export const startCreateBook = () => {
   return {
     type: LIBRARY_ACTION_TYPES.START_CREATE_BOOK
   }
+} */
+
+export const startCreateBook = (book) => {
+  return {
+    type: LIBRARY_ACTION_TYPES.START_CREATE_BOOK,
+    data: book
+  }
 }
 
-const endCreateBook = () => {
+export const endCreateBook = () => {
   return {
     type: LIBRARY_ACTION_TYPES.END_CREATE_BOOK
   }
 }
 
-const newBook = (book) => {
+export const newBook = (book) => {
   return {
     type: LIBRARY_ACTION_TYPES.NEW_BOOK,
     data: book
