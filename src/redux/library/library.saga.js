@@ -27,6 +27,7 @@ export function* refreshBooksStart() {
 }
 
 
+// worker saga
 export function* postBookAsync({ data: book }) {
   try {
     const { data } = yield axios.post('http://localhost:3002/books', book);
@@ -39,6 +40,7 @@ export function* postBookAsync({ data: book }) {
   }
 }
 
+// listener saga
 export function* createBookStart() {
-  yield takeLatest(LIBRARY_ACTION_TYPES.START_CREATE_BOOK, postBookAsync);
+  yield takeEvery(LIBRARY_ACTION_TYPES.START_CREATE_BOOK, postBookAsync);
 }
